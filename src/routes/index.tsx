@@ -1,19 +1,30 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useGetCards } from "../hooks/useGetCards";
-import { Input } from "@mui/material";
+import { Box, Input, Typography } from "@mui/material";
+import { useState } from "react";
 
 export const Route = createFileRoute("/")({
   component: Index,
 });
 
 function Index() {
-  const { data, isLoading } = useGetCards();
+  const [searchValue, setSearchValue] = useState("");
+  const { data, isLoading } = useGetCards(searchValue);
 
   console.log(data);
+
   return (
     <div className="p-2">
-      <h3>Cards goes here</h3>
-      <Input onChange={(e) => console.log(e.target.value)} />
+      <Typography>Cards goes here</Typography>
+      <Input onChange={(e) => setSearchValue(e.target.value)} />
+      {isLoading && <p>Loading...</p>}
+      <Box gap={2} display="flex" flexWrap="wrap">
+        {data?.map((card) => (
+          <Link to={`/details/${card.properties.uid}`}>
+            <Typography>{card.properties.name}</Typography>
+          </Link>
+        ))}
+      </Box>
     </div>
   );
 }
