@@ -12,6 +12,8 @@ function Index() {
   const { data, isLoading } = useGetCards(searchValue);
 
   console.log(data);
+  //   Todo: implement pagination
+  //   Todo: add debounce
 
   return (
     <div className="p-2">
