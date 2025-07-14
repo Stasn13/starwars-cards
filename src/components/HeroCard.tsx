@@ -1,6 +1,6 @@
 import { Box, Card, CardContent } from "@mui/material";
 import { Link } from "@tanstack/react-router";
-import type { Card as CardType } from "../hooks/useGetCards";
+import type { Card as CardType } from "../types/Card";
 import { Title, Description } from "./Typography";
 
 const HeroCard = ({ properties, uid }: CardType) => {
