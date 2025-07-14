@@ -10,4 +10,9 @@ export default defineConfig({
       autoCodeSplitting: true,
     }),
     react()],
+  resolve: {
+    alias: {
+      '@': '/src',
+    },
+  },
 })
