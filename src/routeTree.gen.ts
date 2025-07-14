@@ -9,55 +9,48 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as DetailsRouteImport } from './routes/details'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as DetailsDetailsIdRouteImport } from './routes/details.$detailsId'
 
-const DetailsRoute = DetailsRouteImport.update({
-  id: '/details',
-  path: '/details',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DetailsDetailsIdRoute = DetailsDetailsIdRouteImport.update({
+  id: '/details/$detailsId',
+  path: '/details/$detailsId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/details': typeof DetailsRoute
+  '/details/$detailsId': typeof DetailsDetailsIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/details': typeof DetailsRoute
+  '/details/$detailsId': typeof DetailsDetailsIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/details': typeof DetailsRoute
+  '/details/$detailsId': typeof DetailsDetailsIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/details'
+  fullPaths: '/' | '/details/$detailsId'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/details'
-  id: '__root__' | '/' | '/details'
+  to: '/' | '/details/$detailsId'
+  id: '__root__' | '/' | '/details/$detailsId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  DetailsRoute: typeof DetailsRoute
+  DetailsDetailsIdRoute: typeof DetailsDetailsIdRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/details': {
-      id: '/details'
-      path: '/details'
-      fullPath: '/details'
-      preLoaderRoute: typeof DetailsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/': {
       id: '/'
       path: '/'
@@ -65,12 +58,19 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/details/$detailsId': {
+      id: '/details/$detailsId'
+      path: '/details/$detailsId'
+      fullPath: '/details/$detailsId'
+      preLoaderRoute: typeof DetailsDetailsIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  DetailsRoute: DetailsRoute,
+  DetailsDetailsIdRoute: DetailsDetailsIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
