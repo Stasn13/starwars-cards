@@ -11,4 +11,4 @@ export type Card = {
         url: string;
     }
     uid: string;
-}   
+}
