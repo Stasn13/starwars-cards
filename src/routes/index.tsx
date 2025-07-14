@@ -12,9 +12,12 @@ function Index() {
   const [searchValue, setSearchValue] = useState("");
   const { data, isLoading } = useGetCards(searchValue);
 
-  console.log(data);
   //   Todo: implement pagination
   //   Todo: add debounce
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="p-2">
@@ -22,7 +25,6 @@ function Index() {
         Star Wars heroes:
       </Typography>
       <Input onChange={(e) => setSearchValue(e.target.value)} />
-      {isLoading && <p>Loading...</p>}
       <Box gap={2} display="flex" flexWrap="wrap">
         {data?.map((card) => (
           <HeroCard
